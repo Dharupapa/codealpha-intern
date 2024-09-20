@@ -1,0 +1,121 @@
+<style>
+    body {
+        background-color: teal;
+    }
+
+    h1 {
+        color: white;
+        text-decoration: underline;
+        height: 40px;
+    }
+
+    input {
+        width: 200px;
+        height: 40px;
+        margin-top: 35px;
+        margin-left: 200px;
+        background-color: white;
+    }
+
+    button {
+        margin-left: 40px;
+        width: 100px;
+        height: 30px;
+    }
+
+    #d1 {
+        background-color: aliceblue;
+        width: 800px;
+        height: 100px;
+        margin-top: 130px;
+        margin-left: 240px;
+    }
+
+    .d2, .d3, .d4 {
+        display: inline-block;
+        margin: 70px 30px;
+        color: black;
+        background-color: white;
+        width: 100px;
+        height: 100px;
+        padding-left: 10px;
+        text-align: center;
+        vertical-align: top;
+    }
+</style>
+
+<Doctype html!>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <title>Age Calculator</title>
+    </head>
+    <body>
+        <center><h1><span>A</span>GE <span>C</span>ALCULATOR</h1></center>
+        <div id="d1">
+            <input type="date" id="date-format">
+            <button onclick="calculateAge()"><span>C</span>alculate</button>
+        </div>
+	<center>
+        <div class="d2">
+            <span id="days">-</span>
+            <p>days</p>
+        </div>
+
+        <div class="d3">
+            <span id="months">-</span>
+            <p>months</p>
+        </div>
+
+        <div class="d4">
+            <span id="years">-</span>
+            <p>years</p>
+        </div>
+	</center>
+
+    <script>
+        function calculateAge() {
+            
+            let birthDate = new Date(document.getElementById('date-format').value);
+            if (!birthDate) {
+                alert("Please select a valid date");
+                return;
+            }
+
+            let today = new Date();
+
+            let birthYear = birthDate.getFullYear();
+            let birthMonth = birthDate.getMonth() + 1;
+            let birthDay = birthDate.getDate();
+
+            let currentYear = today.getFullYear();
+            let currentMonth = today.getMonth() + 1;
+            let currentDay = today.getDate();
+
+            
+            let years = currentYear - birthYear;
+
+            
+            let months = currentMonth - birthMonth;
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            let days = currentDay - birthDay;
+            if (days < 0) {
+                months--;
+                let daysInPrevMonth = new Date(currentYear, currentMonth - 1, 0).getDate();
+                days += daysInPrevMonth;
+            }
+
+       
+            document.getElementById('days').textContent = days;
+            document.getElementById('months').textContent = months;
+            document.getElementById('years').textContent = years;
+        }
+    </script>
+    </body>
+</html>
